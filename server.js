@@ -74,3 +74,5 @@ server.post(`${appVersion}/parcels`, (req, res) => {
 
 // eslint-disable-next-line no-console
 server.listen(3500, () => console.log('listening on 3500'));
+
+module.exports = {};
