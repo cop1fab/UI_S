@@ -1,29 +1,9 @@
-const Express = require('express');
+import Express from 'express';
+import allParcels, { getParcelById, getParcelsByUserId, putParcelsById, postParcels } from './models/datastructure'
 
 const server = Express();
 
 server.use(Express.json());
-
-const allParcels = [
-  {
-    parId: 1, usId: 1, weight: 20, picLoc: 'Kinamba', dest: 'Karongi', Descr: 'Must be wrapped', Pri: 20000, status: 'Delivered',
-  },
-  {
-    ParId: 2, usId: 2, weight: 20, picLoc: 'Kisimenti', dest: 'Huye', Descr: 'only one box', Pri: 48000, status: 'not Delivered',
-  },
-  {
-    parId: 3, usId: 1, weight: 56, picLoc: 'Kimisagara', dest: 'Nyanza', Descr: 'handle with care', Pri: 90870, status: 'not Delivered',
-  },
-  {
-    parId: 5, usId: 3, weight: 86, picLoc: 'Gacuriro', dest: 'Muhanga', Descr: 'Tomatoes', Pri: 120000, status: 'Delivered',
-  },
-  {
-    parId: 9, usId: 1, weight: 12, picLoc: 'Kimironko', dest: 'Nyamagabe', Descr: 'eggs', Pri: 14000, status: 'Delivered',
-  },
-  {
-    parId: 8, usId: 2, weight: 34, picLoc: 'Kacyiru', dest: 'Gicumbi', Descr: 'clothes', Pri: 28300, status: 'Delivered',
-  },
-];
 
 const appVersion = '/api/v1';
 
@@ -32,23 +12,16 @@ server.get(`${appVersion}/parcels`, (req, res) => {
 });
 
 server.get(`${appVersion}/parcels/:parid`, (req, res) => {
-  const temparcel = allParcels
-    .find(parcel => parcel.parId === Number.parseInt(req.params.parid, 10));
+  const temparcel = getParcelById(Number.parseInt(req.params.parid, 10))
   if (!temparcel) {
     res.send('sorry, no match found');
-  } else {
-    res.send(temparcel);
+  } else { 
+    res.json(temparcel);
   }
 });
 
 server.get(`${appVersion}/users/:usid/parcels`, (req, res) => {
-  const tempParcels = [];
-
-  allParcels.forEach((parcel) => {
-    if (parcel.usId === Number.parseInt(req.params.usid, 10)) {
-      tempParcels.push(parcel);
-    }
-  });
+const tempParcels = getParcelsByUserId(Number.parseInt(req.params.usid,10))
   if (!tempParcels.length) {
     res.send('No user registered');
   } else {
@@ -57,22 +30,14 @@ server.get(`${appVersion}/users/:usid/parcels`, (req, res) => {
 });
 
 server.put(`${appVersion}/parcels/:parid/cancel`, (req, res) => {
-  let tempIndex;
-  allParcels.forEach((value, index) => {
-    if (value.parId === Number.parseInt(req.params.parid, 10)) {
-      tempIndex = index;
-    }
-  });
-  allParcels.splice(tempIndex, 1);
-  res.send(allParcels);
+  const tempIndex = putParcelsById(Number.parseInt(req.params.parid, 10));
+ 
+  res.json(tempIndex);
 });
 server.post(`${appVersion}/parcels`, (req, res) => {
-  const newParcel = { ...req.body, parId: new Date() };
-  allParcels.push(newParcel);
-  res.send(allParcels);
+  const createParcel = postParcels(req.body)
+  res.json(allParcels);
 });
 
 // eslint-disable-next-line no-console
-server.listen(3500, () => console.log('listening on 3500'));
-
-module.exports = {};
+server.listen(3800, () => console.log('listening on 3800'));
