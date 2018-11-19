@@ -1,23 +1,4 @@
-const allParcels = [
-  {
-    parId: 1, usId: 1, weight: 20, picLoc: 'Kinamba', dest: 'Karongi', Descr: 'Must be wrapped', Pri: 20000, status: 'Delivered',
-  },
-  {
-    parId: 2, usId: 2, weight: 20, picLoc: 'Kisimenti', dest: 'Huye', Descr: 'only one box', Pri: 48000, status: 'not Delivered',
-  },
-  {
-    parId: 3, usId: 1, weight: 56, picLoc: 'Kimisagara', dest: 'Nyanza', Descr: 'handle with care', Pri: 90870, status: 'not Delivered',
-  },
-  {
-    parId: 5, usId: 3, weight: 86, picLoc: 'Gacuriro', dest: 'Muhanga', Descr: 'Tomatoes', Pri: 120000, status: 'Delivered',
-  },
-  {
-    parId: 9, usId: 1, weight: 12, picLoc: 'Kimironko', dest: 'Nyamagabe', Descr: 'eggs', Pri: 14000, status: 'Delivered',
-  },
-  {
-    parId: 8, usId: 2, weight: 34, picLoc: 'Kacyiru', dest: 'Gicumbi', Descr: 'clothes', Pri: 28300, status: 'Delivered',
-  },
-];
+import allParcels from "./data.json"
 
 const getParcelById = (parcelId) => {
   const parcel = allParcels.find(parcel => parcel.parId === Number.parseInt(req.params.parid, 10));
