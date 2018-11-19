@@ -23,6 +23,7 @@ const putParcelsById = (parcelId) => {
   allParcels.splice(tempIndex, 1);
   return allParcels;
 }
+// This line of code about unique Id used is from http://www.frontcoded.com/javascript-create-unique-ids.html
 const uniqueId = function() {
 return 'id-'+ Math.random().toString(36).substr(2,16);
 };
