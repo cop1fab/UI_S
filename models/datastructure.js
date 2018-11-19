@@ -23,8 +23,12 @@ const putParcelsById = (parcelId) => {
   allParcels.splice(tempIndex, 1);
   return allParcels;
 }
+const uniqueId = function() {
+return 'id-'+ Math.random().toString(36).substr(2,16);
+};
+
 const postParcels = (body) => {
-  const newParcel = { ...body, parId: new Date() };
+  const newParcel = { ...body, parId: uniqueId() };
   allParcels.push(newParcel);
   return allParcels;
 }
