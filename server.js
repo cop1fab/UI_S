@@ -2,6 +2,11 @@ import Express from 'express';
 import allParcels, { getParcelById, getParcelsByUserId, putParcelsById, postParcels } from './models/datastructure'
 
 const server = Express();
+// const bodyParser = require("body-parser");
+
+// server.use(bodyParser.urlencoded({extended:false}));
+// server.use(bodyParser.json());
+
 
 server.use(Express.json());
 
@@ -40,4 +45,7 @@ server.post(`${appVersion}/parcels`, (req, res) => {
 });
 
 // eslint-disable-next-line no-console
-server.listen(3800, () => console.log('listening on 3800'));
+const port = process.env.PORT || 3200;
+server.listen(port, () => console.log('server started successfuly'));
+
+module.exports = server
